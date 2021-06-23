@@ -3,7 +3,7 @@ git: FORCE
 
 paru: FORCE git
 	sudo pacman -S --noconfirm --needed base-devel
-	git clone https://aur.archlinux.org/paru.git
+	git clone https://aur.archlinux.org/paru-bin.git
 	cd paru && makepkg -si
 
 packages: FORCE paru

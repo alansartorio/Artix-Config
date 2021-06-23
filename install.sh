@@ -60,7 +60,7 @@ rc-update add connmand
 
 echo "$username ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
 
-cat <<"RICING" | sudo -u alan tee /tmp/userScript.sh > /dev/null
+cat <<"RICING" | sudo -u $username tee /tmp/userScript.sh > /dev/null
 cd
 sudo pacman -S --noconfirm git
 git clone https://github.com/alansartorio/Artix-Config.git
@@ -75,7 +75,7 @@ RICING
 
 sudo -u $username sh /tmp/userScript.sh
 echo "Install the graphics driver!"
-su alan
+su $username
 
 EOF
 
