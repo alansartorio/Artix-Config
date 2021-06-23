@@ -1,21 +1,23 @@
-git:
+git: FORCE
 	sudo pacman -S git
 
-paru: git
+paru: FORCE git
 	sudo pacman -S --needed base-devel
 	git clone https://aur.archlinux.org/paru.git
 	cd paru && makepkg -si
 
-packages: paru
+packages: FORCE paru
 	sudo pacman -S openssh xorg xorg-xinit zsh openrc-zsh-completions bspwm sxhkd feh
 	paru -S polybar siji-git ttf-unifont xorg-fonts-misc
 
-zsh:
+zsh: FORCE
 	$(MAKE) -C zsh install
 
-bspwm:
+bspwm: FORCE
 	$(MAKE) -C bspwm install
 
-install: zsh bspwm
+install: FORCE zsh bspwm
+
+FORCE:
 
 .PHONY: install

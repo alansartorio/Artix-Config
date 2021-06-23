@@ -1,17 +1,19 @@
 
-bspwm:
+bspwm: FORCE
 	mkdir -p ~/.config/bspwm
-	ln -s bspwmrc ~/.config/bspwm/
+	ln -s "$(pwd)/bspwmrc" ~/.config/bspwm/
 
-sxhkd:
+sxhkd: FORCE
 	mkdir -p ~/.config/sxhkd
-	ln -s sxhkdrc ~/.config/sxhkd/
+	ln -s "$(pwd)/sxhkdrc" ~/.config/sxhkd/
 
-polybar:
+polybar: FORCE
 	mkdir -p ~/.config/polybar
-	ln -s config ~/.config/polybar/
+	ln -s "$(pwd)/config" ~/.config/polybar/
 	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh
 
-install: bspwm sxhkd polybar
+install: FORCE bspwm sxhkd polybar
+
+FORCE:
 
 .PHONY: install
