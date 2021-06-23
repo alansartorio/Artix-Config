@@ -10,8 +10,6 @@ packages: paru
 	sudo pacman -S openssh xorg xorg-xinit zsh openrc-zsh-completions bspwm sxhkd feh
 	paru -S polybar siji-git ttf-unifont xorg-fonts-misc
 
-	
-
 zsh:
 	$(MAKE) -C zsh install
 
