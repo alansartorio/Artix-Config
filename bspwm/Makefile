@@ -10,7 +10,7 @@ sxhkd: FORCE
 polybar: FORCE
 	mkdir -p ~/.config/polybar
 	ln -s "$(shell pwd)/config" ~/.config/polybar/
-	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh
+	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh && chmod +x ~/.config/polybar/polybar-kdeconnect.sh
 
 install: FORCE bspwm sxhkd polybar
 
