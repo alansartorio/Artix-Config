@@ -43,6 +43,11 @@ cd Artix-Config
 ./autologin.sh
 ./add-arch-mirrors.sh
 
+sudo pacman -S wget
+make install
+
+
 EOF
 
 artix-chroot /mnt bash /root/chrootScript.sh
+sudo umount -R /mnt

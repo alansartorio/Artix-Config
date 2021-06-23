@@ -16,7 +16,7 @@ zsh: FORCE
 bspwm: FORCE
 	$(MAKE) -C bspwm install
 
-install: FORCE zsh bspwm
+install: FORCE packages zsh bspwm
 
 FORCE:
 
