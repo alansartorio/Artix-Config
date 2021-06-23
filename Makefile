@@ -7,8 +7,10 @@ paru: FORCE git
 	cd paru && makepkg -si
 
 packages: FORCE paru
-	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connman-gtk rofi alacritty kdeconnect
-	paru -S --noconfirm polybar siji-git ttf-unifont xorg-fonts-misc neovim
+	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connman-gtk rofi alacritty kdeconnect 
+	paru -S --noconfirm polybar siji-git xorg-fonts-misc neovim
+
+	sudo pacman -S neofetch firefox chromium blender gimp 
 
 zsh: FORCE
 	$(MAKE) -C zsh install

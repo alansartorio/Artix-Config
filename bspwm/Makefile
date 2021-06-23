@@ -17,6 +17,7 @@ polybar: FORCE
 
 xinit: FORCE
 	ln -s "$(shell pwd)/.xinitrc" ~/
+	cat .bash_profile >> ~/.bash_profile
 
 install: FORCE wallpapers bspwm sxhkd xinit polybar
 
