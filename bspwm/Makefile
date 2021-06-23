@@ -13,3 +13,5 @@ polybar:
 	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh
 
 install: bspwm sxhkd polybar
+
+.PHONY: install
