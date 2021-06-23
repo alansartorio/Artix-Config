@@ -1,4 +1,9 @@
 sudo cfdisk
+read -p "New username: " username
+read -p "Hostname: " hostname
+read -s -p "Password: " password
+echo
+
 read -p "ESP: " esp
 read -p "ROOT: " rootPart
 
@@ -14,6 +19,7 @@ sudo mkfs.ext4 -L "ROOT" "$rootPart"
 sudo mount /dev/disk/by-label/ROOT /mnt
 sudo mkdir /mnt/boot
 sudo mkdir /mnt/home
+sudo mkdir /mnt/tmp
 
 sudo mount /dev/disk/by-label/BOOT /mnt/boot
 
@@ -24,7 +30,11 @@ basestrap /mnt linux linux-firmware
 fstabgen -U /mnt | sudo tee -a /mnt/etc/fstab
 
 
-sudo tee /mnt/tmp/chrootScript.sh > /dev/null <<"EOF"
+sudo tee /mnt/root/chrootScript.sh > /dev/null <<"EOF"
+username=$1
+hostname=$2
+password=$3
+
 sudo ln -sf /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
 hwclock --systohc
 
@@ -34,16 +44,11 @@ locale-gen
 pacman -S --noconfirm grub os-prober efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
+echo "root:$password" | chpasswd
 
-echo "Root password:"
-passwd
-
-read -p "New username: " username
 useradd -m "$username"
-echo "User password:"
-passwd "$username"
+echo "$username:$password" | chpasswd
 
-read -p "Hostname: " hostname
 echo $hostname | sudo tee /etc/hostname
 
 sudo tee -a /etc/hosts <<HOSTS
@@ -79,8 +84,8 @@ su $username
 
 EOF
 
-artix-chroot /mnt bash /tmp/chrootScript.sh
-sudo rm /mnt/tmp/chrootScript.sh
+artix-chroot /mnt bash /root/chrootScript.sh "$username" "$hostname" "$password"
+sudo rm /mnt/root/chrootScript.sh
 sudo umount -R /mnt
 
-sudo reboot
+# sudo reboot

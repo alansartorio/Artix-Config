@@ -4,7 +4,7 @@ git: FORCE
 paru: FORCE git
 	sudo pacman -S --noconfirm --needed base-devel
 	git clone https://aur.archlinux.org/paru-bin.git
-	cd paru && makepkg -si
+	cd paru-bin && makepkg -si
 
 packages: FORCE paru
 	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connman-gtk rofi alacritty kdeconnect 
