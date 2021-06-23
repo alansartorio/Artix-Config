@@ -1,15 +1,15 @@
 
 bspwm: FORCE
 	mkdir -p ~/.config/bspwm
-	ln -s "$(pwd)/bspwmrc" ~/.config/bspwm/
+	ln -s "$(shell pwd)/bspwmrc" ~/.config/bspwm/
 
 sxhkd: FORCE
 	mkdir -p ~/.config/sxhkd
-	ln -s "$(pwd)/sxhkdrc" ~/.config/sxhkd/
+	ln -s "$(shell pwd)/sxhkdrc" ~/.config/sxhkd/
 
 polybar: FORCE
 	mkdir -p ~/.config/polybar
-	ln -s "$(pwd)/config" ~/.config/polybar/
+	ln -s "$(shell pwd)/config" ~/.config/polybar/
 	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh
 
 install: FORCE bspwm sxhkd polybar

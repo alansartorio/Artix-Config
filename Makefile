@@ -7,7 +7,7 @@ paru: FORCE git
 	cd paru && makepkg -si
 
 packages: FORCE paru
-	sudo pacman -S openssh xorg xorg-xinit zsh openrc-zsh-completions bspwm sxhkd feh
+	sudo pacman -S openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh
 	paru -S polybar siji-git ttf-unifont xorg-fonts-misc
 
 zsh: FORCE
