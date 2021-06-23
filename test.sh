@@ -49,6 +49,8 @@ make install
 RICING
 
 sudo -u $username sh /tmp/userScript.sh
+echo "Install the graphics driver!"
+su alan
 
 EOF
 

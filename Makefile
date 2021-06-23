@@ -7,7 +7,7 @@ paru: FORCE git
 	cd paru && makepkg -si
 
 packages: FORCE paru
-	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connmand-gtk rofi alacritty kde-connect
+	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connman-gtk rofi alacritty kdeconnect
 	paru -S --noconfirm polybar siji-git ttf-unifont xorg-fonts-misc neovim
 
 zsh: FORCE
