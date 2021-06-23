@@ -1,4 +1,3 @@
 file=/etc/init.d/agetty.tty1
 
-echo "agetty_options=\"--autologin $USER --noclear\"
-$(cat $file)" | sudo tee $file
+sed "/^description=.*/a agetty_options=\"--autologin $USER --noclear\"" $file | sudo tee $file

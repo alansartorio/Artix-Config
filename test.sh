@@ -6,7 +6,7 @@ hwclock --systohc
 sudo sed -i '/^#\s*en_US.UTF-8 UTF-8/s/^#//' /etc/locale.gen
 locale-gen
 
-pacman -S grub os-prober efibootmgr
+pacman -S --noconfirm grub os-prober efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -29,25 +29,29 @@ HOSTS
 
 echo "hostname=\"$hostname\"" | sudo tee /etc/conf.d/hostname
 
-pacman -S dhcpcd
-pacman -S connman-openrc connman-gtk
+pacman -S --noconfirm dhcpcd
+pacman -S --noconfirm connman-openrc
 rc-update add connmand
 
 echo "$username ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
-su alan
+
+cat <<"RICING" | sudo -u alan tee /tmp/userScript.sh > /dev/null
 cd
-sudo pacman -S git
+sudo pacman -S --noconfirm git
 git clone https://github.com/alansartorio/Artix-Config.git
 cd Artix-Config
 
 ./autologin.sh
 ./add-arch-mirrors.sh
 
-sudo pacman -S wget
+sudo pacman -S --noconfirm wget
 make install
+RICING
 
+sudo -u $username sh /tmp/userScript.sh
 
 EOF
 
 artix-chroot /mnt bash /root/chrootScript.sh
+sudo rm /mnt/root/chrootScript.sh
 sudo umount -R /mnt

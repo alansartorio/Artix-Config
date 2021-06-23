@@ -15,6 +15,9 @@ polybar: FORCE
 	ln -s "$(shell pwd)/config" ~/.config/polybar/
 	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh && chmod +x ~/.config/polybar/polybar-kdeconnect.sh
 
+xinit: FORCE
+	ln -s "$(shell pwd)/.xinitrc" ~/
+
 install: FORCE wallpapers bspwm sxhkd polybar
 
 FORCE:

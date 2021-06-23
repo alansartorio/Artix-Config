@@ -1,14 +1,14 @@
 git: FORCE
-	sudo pacman -S git
+	sudo pacman -S --noconfirm git
 
 paru: FORCE git
-	sudo pacman -S --needed base-devel
+	sudo pacman -S --noconfirm --needed base-devel
 	git clone https://aur.archlinux.org/paru.git
 	cd paru && makepkg -si
 
 packages: FORCE paru
-	sudo pacman -S openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh
-	paru -S polybar siji-git ttf-unifont xorg-fonts-misc
+	sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh connmand-gtk rofi alacritty kde-connect
+	paru -S --noconfirm polybar siji-git ttf-unifont xorg-fonts-misc neovim
 
 zsh: FORCE
 	$(MAKE) -C zsh install
