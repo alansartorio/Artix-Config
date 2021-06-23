@@ -1,3 +1,6 @@
+wallpapers: FORCE
+	mkdir -p ~/Pictures
+	ln -s "$(shell pwd)/Wallpapers" ~/Pictures/
 
 bspwm: FORCE
 	mkdir -p ~/.config/bspwm
@@ -12,7 +15,7 @@ polybar: FORCE
 	ln -s "$(shell pwd)/config" ~/.config/polybar/
 	wget -O ~/.config/polybar/polybar-kdeconnect.sh https://github.com/haideralipunjabi/polybar-kdeconnect/raw/master/polybar-kdeconnect.sh && chmod +x ~/.config/polybar/polybar-kdeconnect.sh
 
-install: FORCE bspwm sxhkd polybar
+install: FORCE wallpapers bspwm sxhkd polybar
 
 FORCE:
 

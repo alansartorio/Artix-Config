@@ -20,7 +20,7 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-feh --bg-center Pictures/Wallpapers/hubw6ykc8jr61.webp
+feh --bg-center ~/Pictures/Wallpapers/965feykc8jr61.webp
 
 
 for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
