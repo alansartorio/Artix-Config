@@ -10,7 +10,7 @@ source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/mai
 sudo pacman -S --noconfirm --needed base-devel
 sudo pacman -S --noconfirm git
 git clone https://aur.archlinux.org/paru-bin.git paru
-( cd paru && makepkg -si )
+( cd paru && makepkg -si --noconfirm )
 rm -rf paru
 
 
