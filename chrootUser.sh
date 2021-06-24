@@ -1,3 +1,4 @@
+source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 cd
 
 source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/autologin.sh)
