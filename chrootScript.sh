@@ -1,4 +1,5 @@
-source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+source common.sh
 
 username=$1
 hostname=$2
@@ -39,7 +40,8 @@ EOF
 sudo chmod 0440 "/etc/sudoers.d/user"
 
 pauseInfo "About to run user script!"
-curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootUser.sh | sudo -u $username tee /tmp/userScript.sh > /dev/null
+# curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootUser.sh | sudo -u $username tee /tmp/userScript.sh > /dev/null
+cat chrootUser.sh | sudo -u $username tee /tmp/userScript.sh > /dev/null
 
 sudo -u $username sh /tmp/userScript.sh
 echo "Install the graphics driver!"

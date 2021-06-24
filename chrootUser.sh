@@ -1,10 +1,12 @@
-source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+source common.sh
 cd
 
 # Autologin to user on boot
 sudo sed -i "/^description=.*/a agetty_options=\"--autologin $USER --noclear\"" /etc/init.d/agetty.tty1
 
-source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/add-arch-mirrors.sh)
+# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/add-arch-mirrors.sh)
+source add-arch-mirrors.sh
 
 # Install paru
 sudo pacman -S --noconfirm --needed base-devel

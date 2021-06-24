@@ -1,4 +1,5 @@
-source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
+source common.sh
 
 sudo cfdisk
 read -p "New username: " username
@@ -34,7 +35,8 @@ basestrap /mnt linux linux-firmware
 fstabgen -U /mnt | sudo tee -a /mnt/etc/fstab
 
 pauseInfo "About to run script inside chroot!"
-curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootScript.sh | sudo tee /mnt/root/chrootScript.sh > /dev/null
+# curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootScript.sh | sudo tee /mnt/root/chrootScript.sh > /dev/null
+cat chrootScript.sh | sudo tee /mnt/root/chrootScript.sh > /dev/null
 
 artix-chroot /mnt bash /root/chrootScript.sh "$username" "$hostname" "$password"
 sudo rm /mnt/root/chrootScript.sh
