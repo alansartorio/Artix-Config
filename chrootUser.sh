@@ -1,7 +1,9 @@
 source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 cd
 
-source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/autologin.sh)
+# Autologin to user on boot
+sudo sed -i "/^description=.*/a agetty_options=\"--autologin $USER --noclear\"" /etc/init.d/agetty.tty1
+
 source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/add-arch-mirrors.sh)
 
 # Install paru
