@@ -15,7 +15,7 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 echo "root:$password" | chpasswd
 
-useradd -m "$username"
+useradd -s /bin/zsh -m "$username"
 echo "$username:$password" | chpasswd
 
 echo $hostname | sudo tee /etc/hostname
