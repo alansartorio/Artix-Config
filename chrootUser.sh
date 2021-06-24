@@ -14,7 +14,7 @@ git clone https://aur.archlinux.org/paru-bin.git paru
 rm -rf paru
 
 
-sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh rofi alacritty # kdeconnect connman-gtk
+sudo pacman -S --noconfirm ntfs-3g openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh rofi alacritty # kdeconnect connman-gtk
 paru -S --noconfirm polybar siji-git xorg-fonts-misc neovim
 sudo pacman -S --noconfirm neofetch # firefox chromium blender gimp
 
