@@ -32,7 +32,11 @@ pacman -S --noconfirm dhcpcd
 pacman -S --noconfirm connman-openrc
 rc-update add connmand
 
-echo "$username ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
+sudo tee "/etc/sudoers.d/user" > /dev/null <<EOF
+$username ALL=(ALL:ALL) ALL
+$username ALL=NOPASSWD: /usr/bin/shutdown, /usr/bin/reboot, /usr/bin/halt
+EOF
+sudo chmod 0440 "/etc/sudoers.d/user"
 
 pauseInfo "About to run user script!"
 curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootUser.sh | sudo -u $username tee /tmp/userScript.sh > /dev/null
