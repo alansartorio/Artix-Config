@@ -12,8 +12,9 @@ rm -rf paru
 
 
 sudo pacman -S --noconfirm openssh xorg xorg-xinit wget zsh openrc-zsh-completions bspwm sxhkd feh rofi alacritty # kdeconnect connman-gtk
+pauseInfo "here!"
 paru -S --noconfirm polybar siji-git xorg-fonts-misc neovim
-sudo pacman -S neofetch # firefox chromium blender gimp
+sudo pacman -S --noconfirm neofetch # firefox chromium blender gimp
 
 sudo pacman -S --noconfirm git
 git clone https://github.com/alansartorio/dotfiles.git .dotfiles
