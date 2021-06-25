@@ -1,14 +1,26 @@
+
+cd "$(dirname "$0")"
+
 # source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 source common.sh
 
-sudo cfdisk
+clear
+info "Create your partitions (ESP and ROOT)"
+info "You can use the cfdisk utility"
+bash
+read -p "ESP: " esp
+read -p "ROOT: " rootPart
+
 read -p "New username: " username
 read -p "Hostname: " hostname
 read -s -p "Password: " password
 echo
 
-read -p "ESP: " esp
-read -p "ROOT: " rootPart
+if [ -z "$username" ] || [ -z "$hostname" ] || [ -z "$password" ] || [ -z "$esp" ] || [ -z "$rootPart" ]
+then
+    info "At least one of the previous fields is empty, restart installation!"
+    exit 1
+fi
 
 read -p "Do you want to format ESP? " -n 1 -r
 echo
