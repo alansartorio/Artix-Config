@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 
 # source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
-source common.sh
+%INCLUDE common.sh
 
 clear
 info "Create your partitions (ESP and ROOT)"
@@ -31,7 +31,7 @@ fi
 
 sudo mkfs.ext4 -L "ROOT" "$rootPart"
 
-pauseInfo "About to start installation!"
+info "About to start installation!"
 
 sudo mount /dev/disk/by-label/ROOT /mnt
 sudo mkdir /mnt/boot
@@ -46,12 +46,20 @@ basestrap /mnt linux linux-firmware
 
 fstabgen -U /mnt | sudo tee -a /mnt/etc/fstab
 
-pauseInfo "About to run script inside chroot!"
-# curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/chrootScript.sh | sudo tee /mnt/root/chrootScript.sh > /dev/null
-cat chrootScript.sh | sudo tee /mnt/root/chrootScript.sh > /dev/null
+info "About to run script inside chroot!"
 
-artix-chroot /mnt bash /root/chrootScript.sh "$username" "$hostname" "$password"
-sudo rm /mnt/root/chrootScript.sh
+chroot-run() {
+    dir="$1"
+    script="$2"
+    shift 2
+    cp "$script" "$dir/script"
+    artix-chroot "$dir" "script" $*
+    rm "$dir/script"
+}
+
+chrootScript=%READCONTENT chrootScript.sh
+chroot-run /mnt <(echo "$chrootScript") "$username" "$hostname" "$password"
+
 sudo umount -R /mnt
 
 # sudo reboot
