@@ -1,7 +1,3 @@
-
-cd "$(dirname "$0")"
-
-# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 %INCLUDE common.sh
 
 clear
@@ -52,9 +48,10 @@ chroot-run() {
     dir="$1"
     script="$2"
     shift 2
-    cp "$script" "$dir/script"
-    artix-chroot "$dir" "script" $*
-    rm "$dir/script"
+    cat "$script" | sudo tee "$dir/test.sh"
+    sudo chmod +x "$dir/test.sh"
+    artix-chroot "$dir" "/test.sh" "$@"
+    sudo rm "$dir/test.sh"
 }
 
 chrootScript=%READCONTENT chrootScript.sh

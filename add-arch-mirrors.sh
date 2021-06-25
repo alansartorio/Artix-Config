@@ -1,6 +1,14 @@
-sudo pacman -S --noconfirm artix-archlinux-support
+sudo pacman-key --init
+sudo pacman-key --populate artix
+sudo pacman -Sy
 
-sudo tee -a /etc/pacman.conf <<"EOF"
+# Add arch mirrors
+
+if ! sudo cat /etc/pacman.conf | grep -Fq "ARCHLINUX"
+then
+	sudo pacman -S --noconfirm artix-archlinux-support
+	sudo pacman-key --populate archlinux
+	sudo tee -a /etc/pacman.conf <<"EOF"
 # ARCHLINUX
 [extra]
 Include = /etc/pacman.d/mirrorlist-arch
@@ -11,5 +19,5 @@ Include = /etc/pacman.d/mirrorlist-arch
 #[multilib]
 #Include = /etc/pacman.d/mirrorlist-arch
 EOF
-
-sudo pacman-key --populate archlinux
+	sudo pacman -Sy
+fi

@@ -1,3 +1,4 @@
+#!/bin/bash
 # source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 %INCLUDE common.sh
 
@@ -11,7 +12,7 @@ hwclock --systohc
 sudo sed -i '/^#\s*en_US.UTF-8 UTF-8/s/^#//' /etc/locale.gen
 locale-gen
 
-pacman -S --noconfirm grub os-prober efibootmgr
+pacman -S --noconfirm --needed grub os-prober efibootmgr zsh
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 echo "root:$password" | chpasswd

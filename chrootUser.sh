@@ -8,10 +8,21 @@ sudo sed -i "/^description=.*/a agetty_options=\"--autologin $USER --noclear\"" 
 # source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/add-arch-mirrors.sh)
 %INCLUDE add-arch-mirrors.sh
 
+# Font Key workaround
+keyFile="$HOME/.gnupg/gpg.conf"
+mkdir -p $(dirname "$keyFile")
+if ! { [ -f "$keyFile" ] && grep -Fq "FONT_WORKAROUND" "$keyFile"; }
+then
+	cat >> "$keyFile" <<"EOF"
+# FONT_WORKAROUND
+keyserver hkps://keyserver.ubuntu.com
+EOF
+fi
+
 # Install paru
 sudo pacman -S --noconfirm --needed base-devel git
 git clone https://aur.archlinux.org/paru-bin.git paru
-( cd paru && makepkg -si --noconfirm )
+( cd paru && makepkg -si --noconfirm --needed )
 rm -rf paru
 
 
