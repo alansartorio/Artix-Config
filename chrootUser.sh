@@ -1,11 +1,9 @@
-# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 %INCLUDE common.sh
 cd
 
 # Autologin to user on boot
 sudo sed -i "/^description=.*/a agetty_options=\"--autologin $USER --noclear\"" /etc/init.d/agetty.tty1
 
-# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/add-arch-mirrors.sh)
 %INCLUDE add-arch-mirrors.sh
 
 # Font Key workaround

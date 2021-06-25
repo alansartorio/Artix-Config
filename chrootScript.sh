@@ -1,5 +1,4 @@
 #!/bin/bash
-# source <(curl -s https://raw.githubusercontent.com/alansartorio/Artix-Config/main/common.sh)
 %INCLUDE common.sh
 
 username=$1
