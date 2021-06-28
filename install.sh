@@ -1,11 +1,13 @@
 %INCLUDE common.sh
 
 clear
-info "Create your partitions (ESP and ROOT)"
+info "Create your partitions (ESP and ROOT, (SWAP optional))"
 info "You can use the cfdisk utility"
 bash
 read -p "ESP: " esp
 read -p "ROOT: " rootPart
+
+option "Do you want to use SWAP? " 'read -p "Input the SWAP partition: " swapPart' "swapPart=''"
 
 read -p "New username: " username
 read -p "Hostname: " hostname
@@ -18,14 +20,15 @@ then
     exit 1
 fi
 
-read -p "Do you want to format ESP? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    sudo mkfs.fat -F 32 -n "BOOT" "$esp"
-fi
+
+option "Do you want to format ESP? " 'sudo mkfs.fat -F 32 -n "BOOT" "$esp"' ""
 
 sudo mkfs.ext4 -L "ROOT" "$rootPart"
+if [ -n "$swapPart" ]
+then
+    sudo mkswap "$swapPart"
+    sudo swapon "$swapPart"
+fi
 
 info "About to start installation!"
 
@@ -36,15 +39,14 @@ sudo mkdir /mnt/tmp
 
 sudo mount /dev/disk/by-label/BOOT /mnt/boot
 
-
 basestrap /mnt base base-devel openrc elogind-openrc
 basestrap /mnt linux linux-firmware
 
-fstabgen -U /mnt | sudo tee -a /mnt/etc/fstab
+fstabgen -U /mnt | sudo tee /mnt/etc/fstab
 
 info "About to run script inside chroot!"
 
-chroot-run() {
+chrootRun() {
     dir="$1"
     script="$2"
     shift 2
@@ -55,7 +57,7 @@ chroot-run() {
 }
 
 chrootScript=%READCONTENT chrootScript.sh
-chroot-run /mnt <(echo "$chrootScript") "$username" "$hostname" "$password"
+chrootRun /mnt <(echo "$chrootScript") "$username" "$hostname" "$password"
 
 sudo umount -R /mnt
 

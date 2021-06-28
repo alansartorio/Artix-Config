@@ -33,14 +33,23 @@ pacman -S --noconfirm dhcpcd
 pacman -S --noconfirm connman-openrc
 rc-update add connmand
 
-sudo tee "/etc/sudoers.d/user" > /dev/null <<EOF
-$username ALL=(ALL:ALL) ALL
-$username ALL=NOPASSWD: /usr/bin/shutdown, /usr/bin/reboot, /usr/bin/halt
+
+sudo tee "/etc/sudoers.d/tmpPerm" > /dev/null <<EOF
+$username ALL=(ALL) NOPASSWD: ALL
 EOF
-sudo chmod 0440 "/etc/sudoers.d/user"
+sudo chmod 0440 "/etc/sudoers.d/tmpPerm"
 
 userScript=%READCONTENT chrootUser.sh
 sudo -u $username sh -c "$userScript"
+
+rm "/etc/sudoers.d/tmpPerm"
+
+# Add wanted permissions for installation
+sudo tee "/etc/sudoers.d/user" > /dev/null <<EOF
+$username ALL=(ALL) ALL
+$username ALL=NOPASSWD: /usr/bin/shutdown, /usr/bin/poweroff, /usr/bin/reboot, /usr/bin/halt
+EOF
+sudo chmod 0440 "/etc/sudoers.d/user"
 
 info "Install the graphics driver!"
 su $username
