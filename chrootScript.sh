@@ -31,14 +31,6 @@ then
     argument="${argument}resume=PARTUUID=$(getPARTUUID $swapPart) "
 fi
 argument="${argument}rw initrd=\initramfs-linux.img"
-pauseInfo efibootmgr \
-    --disk "$partName" \
-    --part "$partNumber" \
-    --create \
-    --label "Alan Artix" \
-    --loader /vmlinuz-linux \
-    --unicode "$argument" \
-    --verbose
 
 efibootmgr \
     --disk "$partName" \
