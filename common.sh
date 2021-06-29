@@ -1,13 +1,14 @@
 
-RED='\033[1;34m'
+BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
 info () {
-  printf "${RED}$1${NC}\n"
+  printf "${BLUE}%s${NC}\n" "$*"
 }
 
 pauseInfo () {
-    info "$1\nPress return to continue..."
+    echo "$@"
+    info "$@\nPress return to continue..."
     read
 }
 option () {

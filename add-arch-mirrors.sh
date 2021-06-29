@@ -19,6 +19,7 @@ Include = /etc/pacman.d/mirrorlist-arch
 #[multilib]
 #Include = /etc/pacman.d/mirrorlist-arch
 
+[options]
 ParallelDownloads = 6
 EOF
 	sudo pacman -Sy

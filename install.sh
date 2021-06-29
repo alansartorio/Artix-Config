@@ -57,7 +57,7 @@ chrootRun() {
 }
 
 chrootScript=%READCONTENT chrootScript.sh
-chrootRun /mnt <(echo "$chrootScript") "$username" "$hostname" "$password"
+chrootRun /mnt <(echo "$chrootScript") "$username" "$hostname" "$password" "$esp" "$rootPart" "$swapPart"
 
 sudo umount -R /mnt
 

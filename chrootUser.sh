@@ -34,3 +34,6 @@ git clone https://github.com/alansartorio/dotfiles.git .dotfiles
 cd .dotfiles
 script/install
 script/bootstrap
+
+# Run zsh for initialization
+zsh -c ""

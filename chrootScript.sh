@@ -4,6 +4,9 @@
 username=$1
 hostname=$2
 password=$3
+esp=$4
+rootPart=$5
+swapPart=$6
 
 sudo ln -sf /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
 hwclock --systohc
@@ -11,9 +14,46 @@ hwclock --systohc
 sudo sed -i '/^#\s*en_US.UTF-8 UTF-8/s/^#//' /etc/locale.gen
 locale-gen
 
-pacman -S --noconfirm --needed grub os-prober efibootmgr zsh
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-grub-mkconfig -o /boot/grub/grub.cfg
+pacman -S --noconfirm --needed zsh efibootmgr
+
+getPARTUUID() {
+    part=$1
+    sudo blkid | grep "$part" | sed -r 's/.*PARTUUID="([[:xdigit:]-]+)".*/\1/'
+}
+
+read -r partName partNumber << EOF
+$(sed -r 's|(/dev/sd[a-z])([[:digit:]]+)|\1\t\2|' <<< "$esp")
+EOF
+
+argument="root=PARTUUID=$(getPARTUUID $rootPart) "
+if [ -n "$swapPart" ]
+then
+    argument="${argument}resume=PARTUUID=$(getPARTUUID $swapPart) "
+fi
+argument="${argument}rw initrd=\initramfs-linux.img"
+pauseInfo efibootmgr \
+    --disk "$partName" \
+    --part "$partNumber" \
+    --create \
+    --label "Alan Artix" \
+    --loader /vmlinuz-linux \
+    --unicode "$argument" \
+    --verbose
+
+efibootmgr \
+    --disk "$partName" \
+    --part "$partNumber" \
+    --create \
+    --label "Alan Artix" \
+    --loader /vmlinuz-linux \
+    --unicode "$argument" \
+    --verbose
+
+# pacman -S --noconfirm --needed grub os-prober
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+# grub-mkconfig -o /boot/grub/grub.cfg
+
+
 echo "root:$password" | chpasswd
 
 useradd -s /bin/zsh -m "$username"
