@@ -61,10 +61,10 @@ HOSTS
 
 echo "hostname=\"$hostname\"" | sudo tee /etc/conf.d/hostname
 
-pacman -S --noconfirm dhcpcd
-pacman -S --noconfirm connman-openrc
-rc-update add connmand
-
+#pacman -S --noconfirm dhcpcd
+#pacman -S --noconfirm connman-openrc
+#rc-update add connmand
+pacman -S --noconfirm --needed networkmanager
 
 sudo tee "/etc/sudoers.d/tmpPerm" > /dev/null <<EOF
 $username ALL=(ALL) NOPASSWD: ALL

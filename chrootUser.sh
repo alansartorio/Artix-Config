@@ -26,14 +26,17 @@ rm -rf paru
 
 # Install some packages
 paru -S --noconfirm --needed pulseaudio pulseaudio-alsa ntfs-3g \
-		openssh xorg xorg-xinit wget zsh openrc-zsh-completions \
-		rofi alacritty neovim neofetch firefox dolphin cmst
+openssh xorg xorg-xinit wget zsh openrc-zsh-completions \
+rofi alacritty neovim neofetch firefox dolphin networkmanager-openrc
+
+sudo rc-update add NetworkManager
 
 # Install my dotfiles
 git clone https://github.com/alansartorio/dotfiles.git .dotfiles
 cd .dotfiles
 script/install
 script/bootstrap
+script/postinstall
 
 # Run zsh for initialization
 zsh -c ""
