@@ -21,9 +21,16 @@ getPARTUUID() {
     sudo blkid | grep "$part" | sed -r 's/.*PARTUUID="([[:xdigit:]-]+)".*/\1/'
 }
 
-read -r partName partNumber << EOF
-$(sed -r 's|(/dev/sd[a-z])([[:digit:]]+)|\1\t\2|' <<< "$esp")
+espnodev=${esp##/dev/}
+if [[ "$espnodev" == sd* ]]; then
+    read -r partName partNumber << EOF
+$(sed -r 's|(sd[a-z])([[:digit:]]+)|\1\t\2|' <<< "$espnodev")
 EOF
+elif [[ "$espnodev" == nvme* ]]; then
+    read -r partName partNumber << EOF
+$(sed -r 's|(nvme[0-9]n[0-9])p([[:digit:]]+)|\1\t\2|' <<< "$espnodev")
+EOF
+fi
 
 argument="root=PARTUUID=$(getPARTUUID $rootPart) "
 if [ -n "$swapPart" ]
