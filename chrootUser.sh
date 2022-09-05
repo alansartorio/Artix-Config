@@ -25,7 +25,7 @@ rm -rf paru
 
 
 # Install some packages
-paru -S --noconfirm --needed pulseaudio pulseaudio-alsa ntfs-3g \
+paru -S --noconfirm --needed pipewire pipewire-pulse pipewire-jack pipewire-alsa pipewire-v4l2 qpwgraph wireplumber ntfs-3g \
 openssh xorg xorg-xinit wget zsh openrc-zsh-completions \
 rofi alacritty neovim neofetch firefox dolphin networkmanager-openrc
 
